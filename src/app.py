@@ -44,3 +44,11 @@ cameras, reason, text, prompt = get_camera_recommendation(
     client, user_description, inventory_context, previous_chat=""
 )
 output_message(cameras, reason, text)
+
+
+cameras, reason, text, prompt = get_camera_recommendation(client, "Surely there is something cheaper", inventory_context, previous_chat=text)
+output_message(cameras, reason, text)
+
+
+cameras, reason, text, prompt = get_camera_recommendation(client, "CHeaper!!!", inventory_context, previous_chat=text)
+output_message(cameras, reason, text)
