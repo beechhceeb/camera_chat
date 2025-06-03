@@ -10,6 +10,7 @@ import pandas as pd
 from google.api_core.exceptions import DeadlineExceeded
 from google.cloud import bigquery
 from google.cloud.bigquery import QueryJob
+
 log = logging.getLogger(__name__)
 
 warnings.filterwarnings(
@@ -38,9 +39,7 @@ def time_summary(query_job: QueryJob) -> str:
         latest_event = query_job.timeline[-1]
         elapsed_sec = latest_event.elapsed_ms / 1000  # Convert ms to seconds
     else:
-        log.debug(
-            "Query job does not have a timeline. Elapsed time set to 0 seconds."
-        )
+        log.debug("Query job does not have a timeline. Elapsed time set to 0 seconds.")
 
     # Access data processed and billed, handling None values
     total_bytes_processed = query_job.total_bytes_processed or 0
@@ -185,7 +184,9 @@ class BQHelper:
         job = self.client.query(sql, job_config=job_config)
         # Wait for dry run validation
         job.result()
-        log.info(f"Query is valid. Estimated to process {job.total_bytes_processed / 1e9:.2f} GB.")
+        log.info(
+            f"Query is valid. Estimated to process {job.total_bytes_processed / 1e9:.2f} GB."
+        )
         return df  # Return empty df in dry run
 
     def _run_query(
@@ -226,7 +227,9 @@ class BQHelper:
 
     def _write(self, df: pd.DataFrame, table: str) -> None:
         if self.validate:
-            log.info(f"[VALIDATION MODE] Would write to table `{table}` ({len(df)} rows)")
+            log.info(
+                f"[VALIDATION MODE] Would write to table `{table}` ({len(df)} rows)"
+            )
             return
 
         try:
