@@ -1,3 +1,6 @@
+from core.prompt import get_camera_recommendation
+
+
 def output_message(cameras, reason, text):
     cameras_dash = [c.replace(" ", "-").lower() for c in cameras]
     print("Recommended Cameras:")
@@ -28,3 +31,6 @@ def output_message(cameras, reason, text):
 
     print("\nHistory:")
     print(text)
+
+
+__all__ = ["get_camera_recommendation", "output_message"]

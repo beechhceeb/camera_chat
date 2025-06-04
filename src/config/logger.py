@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
 import logging
-
+from pathlib import Path
+from .settings import ROOT
 load_dotenv()
 
 
@@ -18,8 +19,15 @@ if log_level is None:
 
 # Only configure root logger if not already configured
 if not logging.getLogger().hasHandlers():
+    LOG_DIR = ROOT / "logs"
+    LOG_DIR.mkdir(exist_ok=True)
+    LOG_FILE = LOG_DIR / "chat.log"
+
     logging.basicConfig(
         level=log_level,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        handlers=[logging.StreamHandler()],
+        handlers=[
+            logging.StreamHandler(),
+            logging.FileHandler(LOG_FILE, mode="a")
+        ],
     )

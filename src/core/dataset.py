@@ -1,3 +1,5 @@
+from config.settings import DB_PROMPT_SAVE_PATH
+
 def format_inventory_context(df):
     # Select relevant columns
     cols = [
@@ -17,4 +19,7 @@ def format_inventory_context(df):
 
     # Join all lines into one context string
     inventory_context = "\n".join(lines)
+    # save as txt
+    with open(DB_PROMPT_SAVE_PATH, "w") as f:
+        f.write(inventory_context)
     return inventory_context

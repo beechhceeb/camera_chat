@@ -10,3 +10,4 @@ GOOGLE_GENAI_USE_VERTEXAI = True
 MODEL = "gemini-2.0-flash-001"
 
 QUERY = "get_raw_model_database"
+DB_PROMPT_SAVE_PATH = ROOT / "data" / "db_prompt.txt"
