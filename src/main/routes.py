@@ -43,7 +43,7 @@ def chat():
     valid_models = set(df["model_name"].unique())
     if mode == "compare":
         cameras, reason, history, prompt, chatbot_output = get_camera_comparison(
-            client, user_message, inventory_context, previous_chat
+            client, user_message, inventory_context, previous_chat, valid_models=valid_models
         )
     else:
         cameras, reason, history, prompt, chatbot_output = get_camera_recommendation(

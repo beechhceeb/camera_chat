@@ -108,7 +108,7 @@ def build_comparison_output(cameras, explanation):
     return "\n".join(output)
 
 def get_camera_comparison(
-    client, user_description, inventory_context, previous_chat
+    client, user_description, inventory_context, previous_chat, valid_models=None
 ):
     prompt = f"""
 
@@ -147,6 +147,14 @@ def get_camera_comparison(
         compared_models = [
             model.strip() for model in models_line.split(",") if model.strip()
         ]
+        # Check if compared models are in inventory
+        if valid_models is not None:
+            missing = [m for m in compared_models if m not in valid_models]
+            if missing:
+                error_msg = (
+                    f"Sorry, these models are not in stock: {', '.join(missing)}"
+                )
+                return [], error_msg, previous_chat, prompt, error_msg
         explanation = explanation_part.strip()
         new_history = f"User: {user_description}\nGemini: {response.text}\n"
         full_history = previous_chat + new_history

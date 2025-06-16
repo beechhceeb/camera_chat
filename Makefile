@@ -1,6 +1,6 @@
 DIR := .
 
-.PHONY: init lint fix format check test all
+.PHONY: init lint fix format check test all app
 
 init: 
 	curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -24,3 +24,6 @@ test:
 	uv run pytest -o log_cli=true -o log_cli_level=DEBUG
 
 all: check test
+
+app:
+	uv run src/app.py
